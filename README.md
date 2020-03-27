@@ -25,6 +25,8 @@ It is fully working with x86 64-bit ELF binaries, and should mostly work for x86
 
 It should not be too hard to adapt it for some other architectures, I may implement this in a later update.
 
+Disclaimer : This represents about a week of work, was not thoroughly tested at all, and may be full of bugs.
+
 ## Requirements :
 
 qemu
