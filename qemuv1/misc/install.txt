@@ -1,0 +1,36 @@
+NETWORKING :
+
+apt-get install libvirt-bin 
+
+$ systemctl enable libvirtd.service
+$ systemctl start libvirtd.service
+
+$ sudo virsh net-autostart --network default
+$ sudo virsh net-start --network default
+
+Create the file /etc/qemu/bridge.conf with the content:
+
+allow virbr0
+----------------------------------------------
+
+VM SETUP TTY AUTOLOGIN:
+sudoedit /etc/default/grub
+Change GRUB_CMDLINE_LINUX="" to GRUB_CMDLINE_LINUX="console=tty0 console=ttyS0,9600n8"
+run sudo update-grub
+
+In my case, I had to edit a separate service file which is used for serial terminals. The file is 
+found at /lib/systemd/system/serial-getty@.service and the same procedure of adding --autologin <user> to the appropriate line does the trick.
+
+[Service]
+ExecStart=-/sbin/agetty -o '-p -f -- \\u' --keep-baud 115200,38400,9600 -a root %I $TERM
+----------------------------------------------
+
+To edit qcow : guestfish
+
+
+---------------------------
+SHARE :
+mkdir /s
+chmod 777 /s
+In /etc/crontab :
+@reboot mount -t 9p -o trans=virtio rootme /s -oversion=9p2000.L,posixacl,sync

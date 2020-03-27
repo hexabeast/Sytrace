@@ -1,0 +1,25 @@
+#!/bin/bash -p
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+STTY=$(stty -g)
+stty intr ^-
+
+echo ""
+echo "A share will be available: ./share"
+echo "Launching the machine..."
+echo ""
+
+qemu-system-x86_64 --enable-kvm -m 2048\
+        -cpu kvm64 \
+	-nographic \
+	-hda data/debian.qcow \
+	-monitor /dev/null \
+        -fsdev local,id=exp1,path=./share,security_model=mapped -device virtio-9p-pci,fsdev=exp1,mount_tag=rootme \
+	-s
+
+	 #-machine pc,accel=kvm \
+        #-enable-kvm \
+
+
+stty "${STTY}"

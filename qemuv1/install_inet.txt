@@ -1,0 +1,13 @@
+NETWORKING :
+
+apt-get install libvirt-bin 
+
+$ systemctl enable libvirtd.service
+$ systemctl start libvirtd.service
+
+$ sudo virsh net-autostart --network default
+$ sudo virsh net-start --network default
+
+Create the file /etc/qemu/bridge.conf with the content:
+
+allow virbr0

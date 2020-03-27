@@ -1,0 +1,338 @@
+0|sys_restart_syscall
+1|sys_exit|int error_code
+2|sys_fork|struct pt_regs *
+3|sys_read|unsigned int fd|char __user *buf|size_t count
+4|sys_write|unsigned int fd|const char __user *buf|size_t count
+5|sys_open|const char __user *filename|int flags|int mode
+6|sys_close|unsigned int fd
+7|sys_waitpid|pid_t pid|int __user *stat_addr|int options
+8|sys_creat|const char __user *pathname|int mode
+9|sys_link|const char __user *oldname|const char __user *newname
+10|sys_unlink|const char __user *pathname
+11|sys_execve|char __user *|char __user *__user *|char __user *__user *|struct pt_regs *
+12|sys_chdir|const char __user *filename
+13|sys_time|time_t __user *tloc
+14|sys_mknod|const char __user *filename|int mode|unsigned dev
+15|sys_chmod|const char __user *filename|mode_t mode
+16|sys_lchown16|const char __user *filename|old_uid_t user|old_gid_t group
+17|not implemented
+18|sys_stat|char __user *filename|struct __old_kernel_stat __user *statbuf
+19|sys_lseek|unsigned int fd|off_t offset|unsigned int origin
+20|sys_getpid
+21|sys_mount|char __user *dev_name|char __user *dir_name|char __user *type|unsigned long flags|void __user *data
+22|sys_oldumount|char __user *name
+23|sys_setuid16|old_uid_t uid
+24|sys_getuid16
+25|sys_stime|time_t __user *tptr
+26|sys_ptrace|long request|long pid|long addr|long data
+27|sys_alarm|unsigned int seconds
+28|sys_fstat|unsigned int fd|struct __old_kernel_stat __user *statbuf
+29|sys_pause
+30|sys_utime|char __user *filename|struct utimbuf __user *times
+31|not implemented
+32|not implemented
+33|sys_access|const char __user *filename|int mode
+34|sys_nice|int increment
+35|not implemented
+36|sys_sync
+37|sys_kill|int pid|int sig
+38|sys_rename|const char __user *oldname|const char __user *newname
+39|sys_mkdir|const char __user *pathname|int mode
+40|sys_rmdir|const char __user *pathname
+41|sys_dup|unsigned int fildes
+42|sys_pipe|int __user *fildes
+43|sys_times|struct tms __user *tbuf
+44|not implemented
+45|sys_brk|unsigned long brk
+46|sys_setgid16|old_gid_t gid
+47|sys_getgid16
+48|sys_signal|int sig|__sighandler_t handler
+49|sys_geteuid16
+50|sys_getegid16
+51|sys_acct|const char __user *name
+52|sys_umount|char __user *name|int flags
+53|not implemented
+54|sys_ioctl|unsigned int fd|unsigned int cmd|unsigned long arg
+55|sys_fcntl|unsigned int fd|unsigned int cmd|unsigned long arg
+56|not implemented
+57|sys_setpgid|pid_t pid|pid_t pgid
+58|not implemented
+59|sys_olduname|struct oldold_utsname __user *
+60|sys_umask|int mask
+61|sys_chroot|const char __user *filename
+62|sys_ustat|unsigned dev|struct ustat __user *ubuf
+63|sys_dup2|unsigned int oldfd|unsigned int newfd
+64|sys_getppid
+65|sys_getpgrp
+66|sys_setsid
+67|sys_sigaction|int sig|const struct old_sigaction __user *act|struct old_sigaction __user *oact
+68|sys_sgetmask
+69|sys_ssetmask|int newmask
+70|sys_setreuid16|old_uid_t ruid|old_uid_t euid
+71|sys_setregid16|old_gid_t rgid|old_gid_t egid
+72|sys_sigsuspend|int history0|int history1|old_sigset_t mask
+73|sys_sigpending|old_sigset_t __user *set
+74|sys_sethostname|char __user *name|int len
+75|sys_setrlimit|unsigned int resource|struct rlimit __user *rlim
+76|sys_old_getrlimit|unsigned int resource|struct rlimit __user *rlim
+77|sys_getrusage|int who|struct rusage __user *ru
+78|sys_gettimeofday|struct timeval __user *tv|struct timezone __user *tz
+79|sys_settimeofday|struct timeval __user *tv|struct timezone __user *tz
+80|sys_getgroups16|int gidsetsize|old_gid_t __user *grouplist
+81|sys_setgroups16|int gidsetsize|old_gid_t __user *grouplist
+82|sys_old_select|struct sel_arg_struct __user *arg
+83|sys_symlink|const char __user *old|const char __user *new
+84|sys_lstat|char __user *filename|struct __old_kernel_stat __user *statbuf
+85|sys_readlink|const char __user *path|char __user *buf|int bufsiz
+86|sys_uselib|const char __user *library
+87|sys_swapon|const char __user *specialfile|int swap_flags
+88|sys_reboot|int magic1|int magic2|unsigned int cmd|void __user *arg
+89|sys_old_readdir|unsigned int|struct old_linux_dirent __user *|unsigned int
+90|sys_old_mmap|struct mmap_arg_struct __user *arg
+91|sys_munmap|unsigned long addr|size_t len
+92|sys_truncate|const char __user *path|long length
+93|sys_ftruncate|unsigned int fd|unsigned long length
+94|sys_fchmod|unsigned int fd|mode_t mode
+95|sys_fchown16|unsigned int fd|old_uid_t user|old_gid_t group
+96|sys_getpriority|int which|int who
+97|sys_setpriority|int which|int who|int niceval
+98|not implemented
+99|sys_statfs|const char __user * path|struct statfs __user *buf
+100|sys_fstatfs|unsigned int fd|struct statfs __user *buf
+101|sys_ioperm|unsigned long|unsigned long|int
+102|sys_socketcall|int call|unsigned long __user *args
+103|sys_syslog|int type|char __user *buf|int len
+104|sys_setitimer|int which|struct itimerval __user *value|struct itimerval __user *ovalue
+105|sys_getitimer|int which|struct itimerval __user *value
+106|sys_newstat|char __user *filename|struct stat __user *statbuf
+107|sys_newlstat|char __user *filename|struct stat __user *statbuf
+108|sys_newfstat|unsigned int fd|struct stat __user *statbuf
+109|sys_uname|struct old_utsname __user *
+110|sys_iopl|unsigned int|struct pt_regs *
+111|sys_vhangup
+112|not implemented
+113|sys_vm86old|struct vm86_struct __user *|struct pt_regs *
+114|sys_wait4|pid_t pid|int __user *stat_addr|int options|struct rusage __user *ru
+115|sys_swapoff|const char __user *specialfile
+116|sys_sysinfo|struct sysinfo __user *info
+117|sys_ipc
+118|sys_fsync|unsigned int fd
+119|sys_sigreturn|struct pt_regs *regs
+120|sys_clone|unsigned long|unsigned long|unsigned long|unsigned long|struct pt_regs *
+121|sys_setdomainname|char __user *name|int len
+122|sys_newuname|struct new_utsname __user *name
+123|sys_modify_ldt|int|void __user *|unsigned long
+124|sys_adjtimex|struct timex __user *txc_p
+125|sys_mprotect|unsigned long start|size_t len|unsigned long prot
+126|sys_sigprocmask|int how|old_sigset_t __user *set|old_sigset_t __user *oset
+127|not implemented
+128|sys_init_module|void __user *umod|unsigned long len|const char __user *uargs
+129|sys_delete_module|const char __user *name_user|unsigned int flags
+130|not implemented
+131|sys_quotactl|unsigned int cmd|const char __user *special|qid_t id|void __user *addr
+132|sys_getpgid|pid_t pid
+133|sys_fchdir|unsigned int fd
+134|sys_bdflush|int func|long data
+135|sys_sysfs|int option|unsigned long arg1|unsigned long arg2
+136|sys_personality|unsigned int personality
+137|not implemented
+138|sys_setfsuid16|old_uid_t uid
+139|sys_setfsgid16|old_gid_t gid
+140|sys_llseek|unsigned int fd|unsigned long offset_high|unsigned long offset_low|loff_t __user *result|unsigned int origin
+141|sys_getdents|unsigned int fd|struct linux_dirent __user *dirent|unsigned int count
+142|sys_select|int n|fd_set __user *inp|fd_set __user *outp|fd_set __user *exp|struct timeval __user *tvp
+143|sys_flock|unsigned int fd|unsigned int cmd
+144|sys_msync|unsigned long start|size_t len|int flags
+145|sys_readv|unsigned long fd|const struct iovec __user *vec|unsigned long vlen
+146|sys_writev|unsigned long fd|const struct iovec __user *vec|unsigned long vlen
+147|sys_getsid|pid_t pid
+148|sys_fdatasync|unsigned int fd
+149|sys_sysctl|struct __sysctl_args __user *args
+150|sys_mlock|unsigned long start|size_t len
+151|sys_munlock|unsigned long start|size_t len
+152|sys_mlockall|int flags
+153|sys_munlockall
+154|sys_sched_setparam|pid_t pid|struct sched_param __user *param
+155|sys_sched_getparam|pid_t pid|struct sched_param __user *param
+156|sys_sched_setscheduler|pid_t pid|int policy|struct sched_param __user *param
+157|sys_sched_getscheduler|pid_t pid
+158|sys_sched_yield
+159|sys_sched_get_priority_max|int policy
+160|sys_sched_get_priority_min|int policy
+161|sys_sched_rr_get_interval|pid_t pid|struct timespec __user *interval
+162|sys_nanosleep|struct timespec __user *rqtp|struct timespec __user *rmtp
+163|sys_mremap|unsigned long addr|unsigned long old_len|unsigned long new_len|unsigned long flags|unsigned long new_addr
+164|sys_setresuid16|old_uid_t ruid|old_uid_t euid|old_uid_t suid
+165|sys_getresuid16|old_uid_t __user *ruid|old_uid_t __user *euid|old_uid_t __user *suid
+166|sys_vm86|unsigned long|unsigned long|struct pt_regs *
+167|not implemented
+168|sys_poll|struct pollfd __user *ufds|unsigned int nfds|long timeout
+169|sys_nfsservctl|int cmd|struct nfsctl_arg __user *arg|void __user *res
+170|sys_setresgid16|old_gid_t rgid|old_gid_t egid|old_gid_t sgid
+171|sys_getresgid16|old_gid_t __user *rgid|old_gid_t __user *egid|old_gid_t __user *sgid
+172|sys_prctl|int option|unsigned long arg2|unsigned long arg3|unsigned long arg4|unsigned long arg5
+173|sys_rt_sigreturn|struct pt_regs *
+174|sys_rt_sigaction|int sig|const struct sigaction __user *act|struct sigaction __user *oact|size_t sigsetsize
+175|sys_rt_sigprocmask|int how|sigset_t __user *set|sigset_t __user *oset|size_t sigsetsize
+176|sys_rt_sigpending|sigset_t __user *set|size_t sigsetsize
+177|sys_rt_sigtimedwait|const sigset_t __user *uthese|siginfo_t __user *uinfo|const struct timespec __user *uts|size_t sigsetsize
+178|sys_rt_sigqueueinfo|int pid|int sig|siginfo_t __user *uinfo
+179|sys_rt_sigsuspend|sigset_t __user *unewset|size_t sigsetsize
+180|sys_pread64|unsigned int fd|char __user *buf|size_t count|loff_t pos
+181|sys_pwrite64|unsigned int fd|const char __user *buf|size_t count|loff_t pos
+182|sys_chown16|const char __user *filename|old_uid_t user|old_gid_t group
+183|sys_getcwd|char __user *buf|unsigned long size
+184|sys_capget|cap_user_header_t header|cap_user_data_t dataptr
+185|sys_capset|cap_user_header_t header|const cap_user_data_t data
+186|sys_sigaltstack|const stack_t __user *|stack_t __user *|struct pt_regs *
+187|sys_sendfile|int out_fd|int in_fd|off_t __user *offset|size_t count
+188|not implemented
+189|not implemented
+190|sys_vfork|struct pt_regs *
+191|sys_getrlimit|unsigned int resource|struct rlimit __user *rlim
+192|sys_mmap_pgoff
+193|sys_truncate64|const char __user *path|loff_t length
+194|sys_ftruncate64|unsigned int fd|loff_t length
+195|sys_stat64|char __user *filename|struct stat64 __user *statbuf
+196|sys_lstat64|char __user *filename|struct stat64 __user *statbuf
+197|sys_fstat64|unsigned long fd|struct stat64 __user *statbuf
+198|sys_lchown|const char __user *filename|uid_t user|gid_t group
+199|sys_getuid
+200|sys_getgid
+201|sys_geteuid
+202|sys_getegid
+203|sys_setreuid|uid_t ruid|uid_t euid
+204|sys_setregid|gid_t rgid|gid_t egid
+205|sys_getgroups|int gidsetsize|gid_t __user *grouplist
+206|sys_setgroups|int gidsetsize|gid_t __user *grouplist
+207|sys_fchown|unsigned int fd|uid_t user|gid_t group
+208|sys_setresuid|uid_t ruid|uid_t euid|uid_t suid
+209|sys_getresuid|uid_t __user *ruid|uid_t __user *euid|uid_t __user *suid
+210|sys_setresgid|gid_t rgid|gid_t egid|gid_t sgid
+211|sys_getresgid|gid_t __user *rgid|gid_t __user *egid|gid_t __user *sgid
+212|sys_chown|const char __user *filename|uid_t user|gid_t group
+213|sys_setuid|uid_t uid
+214|sys_setgid|gid_t gid
+215|sys_setfsuid|uid_t uid
+216|sys_setfsgid|gid_t gid
+217|sys_pivot_root|const char __user *new_root|const char __user *put_old
+218|sys_mincore|unsigned long start|size_t len|unsigned char __user * vec
+219|sys_madvise|unsigned long start|size_t len|int behavior
+220|sys_getdents64|unsigned int fd|struct linux_dirent64 __user *dirent|unsigned int count
+221|sys_fcntl64|unsigned int fd|unsigned int cmd|unsigned long arg
+222|not implemented
+223|not implemented
+224|sys_gettid
+225|sys_readahead|int fd|loff_t offset|size_t count
+226|sys_setxattr|const char __user *path|const char __user *name|const void __user *value|size_t size|int flags
+227|sys_lsetxattr|const char __user *path|const char __user *name|const void __user *value|size_t size|int flags
+228|sys_fsetxattr|int fd|const char __user *name|const void __user *value|size_t size|int flags
+229|sys_getxattr|const char __user *path|const char __user *name|void __user *value|size_t size
+230|sys_lgetxattr|const char __user *path|const char __user *name|void __user *value|size_t size
+231|sys_fgetxattr|int fd|const char __user *name|void __user *value|size_t size
+232|sys_listxattr|const char __user *path|char __user *list|size_t size
+233|sys_llistxattr|const char __user *path|char __user *list|size_t size
+234|sys_flistxattr|int fd|char __user *list|size_t size
+235|sys_removexattr|const char __user *path|const char __user *name
+236|sys_lremovexattr|const char __user *path|const char __user *name
+237|sys_fremovexattr|int fd|const char __user *name
+238|sys_tkill|int pid|int sig
+239|sys_sendfile64|int out_fd|int in_fd|loff_t __user *offset|size_t count
+240|sys_futex
+241|sys_sched_setaffinity|pid_t pid|unsigned int len|unsigned long __user *user_mask_ptr
+242|sys_sched_getaffinity|pid_t pid|unsigned int len|unsigned long __user *user_mask_ptr
+243|sys_set_thread_area|struct user_desc __user *
+244|sys_get_thread_area|struct user_desc __user *
+245|sys_io_setup|unsigned nr_reqs|aio_context_t __user *ctx
+246|sys_io_destroy|aio_context_t ctx
+247|sys_io_getevents|aio_context_t ctx_id|long min_nr|long nr|struct io_event __user *events|struct timespec __user *timeout
+248|sys_io_submit|aio_context_t|long|struct iocb __user * __user *
+249|sys_io_cancel|aio_context_t ctx_id|struct iocb __user *iocb|struct io_event __user *result
+250|sys_fadvise64|int fd|loff_t offset|size_t len|int advice
+251|not implemented
+252|sys_exit_group|int error_code
+253|sys_lookup_dcookie|u64 cookie64|char __user *buf|size_t len
+254|sys_epoll_create|int size
+255|sys_epoll_ctl|int epfd|int op|int fd|struct epoll_event __user *event
+256|sys_epoll_wait|int epfd|struct epoll_event __user *events|int maxevents|int timeout
+257|sys_remap_file_pages|unsigned long start|unsigned long size|unsigned long prot|unsigned long pgoff|unsigned long flags
+258|sys_set_tid_address|int __user *tidptr
+259|sys_timer_create|clockid_t which_clock|struct sigevent __user *timer_event_spec|timer_t __user * created_timer_id
+260|sys_timer_settime|timer_t timer_id|int flags|const struct itimerspec __user *new_setting|struct itimerspec __user *old_setting
+261|sys_timer_gettime|timer_t timer_id|struct itimerspec __user *setting
+262|sys_timer_getoverrun|timer_t timer_id
+263|sys_timer_delete|timer_t timer_id
+264|sys_clock_settime|clockid_t which_clock|const struct timespec __user *tp
+265|sys_clock_gettime|clockid_t which_clock|struct timespec __user *tp
+266|sys_clock_getres|clockid_t which_clock|struct timespec __user *tp
+267|sys_clock_nanosleep|clockid_t which_clock|int flags|const struct timespec __user *rqtp|struct timespec __user *rmtp
+268|sys_statfs64|const char __user *path|size_t sz|struct statfs64 __user *buf
+269|sys_fstatfs64|unsigned int fd|size_t sz|struct statfs64 __user *buf
+270|sys_tgkill|int tgid|int pid|int sig
+271|sys_utimes|char __user *filename|struct timeval __user *utimes
+272|sys_fadvise64_64|int fd|loff_t offset|loff_t len|int advice
+273|not implemented
+274|sys_mbind
+275|sys_get_mempolicy|int __user *policy|unsigned long __user *nmask|unsigned long maxnode|unsigned long addr|unsigned long flags
+276|sys_set_mempolicy|int mode|unsigned long __user *nmask|unsigned long maxnode
+277|sys_mq_open|const char __user *name|int oflag|mode_t mode|struct mq_attr __user *attr
+278|sys_mq_unlink|const char __user *name
+279|sys_mq_timedsend|mqd_t mqdes|const char __user *msg_ptr|size_t msg_len|unsigned int msg_prio|const struct timespec __user *abs_timeout
+280|sys_mq_timedreceive|mqd_t mqdes|char __user *msg_ptr|size_t msg_len|unsigned int __user *msg_prio|const struct timespec __user *abs_timeout
+281|sys_mq_notify|mqd_t mqdes|const struct sigevent __user *notification
+282|sys_mq_getsetattr|mqd_t mqdes|const struct mq_attr __user *mqstat|struct mq_attr __user *omqstat
+283|sys_kexec_load|unsigned long entry|unsigned long nr_segments|struct kexec_segment __user *segments|unsigned long flags
+284|sys_waitid|int which|pid_t pid|struct siginfo __user *infop|int options|struct rusage __user *ru
+285|not implemented
+286|sys_add_key|const char __user *_type|const char __user *_description|const void __user *_payload|size_t plen|key_serial_t destringid
+287|sys_request_key|const char __user *_type|const char __user *_description|const char __user *_callout_info|key_serial_t destringid
+288|sys_keyctl|int cmd|unsigned long arg2|unsigned long arg3|unsigned long arg4|unsigned long arg5
+289|sys_ioprio_set|int which|int who|int ioprio
+290|sys_ioprio_get|int which|int who
+291|sys_inotify_init
+292|sys_inotify_add_watch|int fd|const char __user *path|u32 mask
+293|sys_inotify_rm_watch|int fd|__s32 wd
+294|sys_migrate_pages|pid_t pid|unsigned long maxnode|const unsigned long __user *from|const unsigned long __user *to
+295|sys_openat|int dfd|const char __user *filename|int flags|int mode
+296|sys_mkdirat|int dfd|const char __user * pathname|int mode
+297|sys_mknodat|int dfd|const char __user * filename|int mode|unsigned dev
+298|sys_fchownat|int dfd|const char __user *filename|uid_t user|gid_t group|int flag
+299|sys_futimesat|int dfd|char __user *filename|struct timeval __user *utimes
+300|sys_fstatat64|int dfd|char __user *filename|struct stat64 __user *statbuf|int flag
+301|sys_unlinkat|int dfd|const char __user * pathname|int flag
+302|sys_renameat|int olddfd|const char __user * oldname|int newdfd|const char __user * newname
+303|sys_linkat|int olddfd|const char __user *oldname|int newdfd|const char __user *newname|int flags
+304|sys_symlinkat|const char __user * oldname|int newdfd|const char __user * newname
+305|sys_readlinkat|int dfd|const char __user *path|char __user *buf|int bufsiz
+306|sys_fchmodat|int dfd|const char __user * filename|mode_t mode
+307|sys_faccessat|int dfd|const char __user *filename|int mode
+308|sys_pselect6
+309|sys_ppoll|struct pollfd __user *ufds|unsigned int nfds|struct timespec __user *tsp|const sigset_t __user *sigmask|size_t sigsetsize
+310|sys_unshare|unsigned long unshare_flags
+311|sys_set_robust_list|struct robust_list_head __user *head|size_t len
+312|sys_get_robust_list|int pid|struct robust_list_head __user * __user *head_ptr|size_t __user *len_ptr
+313|sys_splice
+314|sys_sync_file_range|int fd|loff_t offset|loff_t nbytes|unsigned int flags
+315|sys_tee|int fdin|int fdout|size_t len|unsigned int flags
+316|sys_vmsplice|int fd|const struct iovec __user *iov|unsigned long nr_segs|unsigned int flags
+317|sys_move_pages
+318|sys_getcpu|unsigned __user *cpu|unsigned __user *node|struct getcpu_cache __user *cache
+319|sys_epoll_pwait
+320|sys_utimensat|int dfd|char __user *filename|struct timespec __user *utimes|int flags
+321|sys_signalfd|int ufd|sigset_t __user *user_mask|size_t sizemask
+322|sys_timerfd_create|int clockid|int flags
+323|sys_eventfd|unsigned int count
+324|sys_fallocate|int fd|int mode|loff_t offset|loff_t len
+325|sys_timerfd_settime|int ufd|int flags|const struct itimerspec __user *utmr|struct itimerspec __user *otmr
+326|sys_timerfd_gettime|int ufd|struct itimerspec __user *otmr
+327|sys_signalfd4|int ufd|sigset_t __user *user_mask|size_t sizemask|int flags
+328|sys_eventfd2|unsigned int count|int flags
+329|sys_epoll_create1|int flags
+330|sys_dup3|unsigned int oldfd|unsigned int newfd|int flags
+331|sys_pipe2|int __user *fildes|int flags
+332|sys_inotify_init1|int flags
+333|sys_preadv|unsigned long fd|const struct iovec __user *vec|unsigned long vlen|unsigned long pos_l|unsigned long pos_h
+334|sys_pwritev|unsigned long fd|const struct iovec __user *vec|unsigned long vlen|unsigned long pos_l|unsigned long pos_h
+335|sys_rt_tgsigqueueinfo|pid_t tgid|pid_t pid|int sig|siginfo_t __user *uinfo
+336|sys_perf_event_open|struct perf_event_attr __user *attr_uptr|pid_t pid|int cpu|int group_fd|unsigned long flags
+337|sys_recvmmsg|int fd|struct mmsghdr __user *msg|unsigned int vlen|unsigned flags|struct timespec __user *timeout
