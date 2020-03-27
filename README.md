@@ -89,10 +89,10 @@ We can see the isolated "cron stuff" process that was triggered automatically so
 
 In the current implementation, breakpoints only work if the traced program has a deterministic behaviour syscall-wise : Given the same input twice, the graph should look pretty much the same.
 If it is the case, and you need to breakpoint somewhere, first do a run without breakpoint :
-gdb -x sytrace.py
+```gdb -x sytrace.py
 Base PID for filtering? (empty for none) : [BASH PID HERE]
 Breakpoint ? (procnum:line,procnum2:line2... or empty for none) : [LEAVE EMPTY]
-
+```
 Launch the program to trace in the Qemu bash prompt, when the trace is over quit sytrace with ctrl+c then q
 
 Then, do :
@@ -103,10 +103,10 @@ Go to the syscall that you want to break at in the graph, and press the right bu
 
 It represents the process number (NOT the pid, 1 is first spawned process from capture start, 2 is second spawned process etc), and the position of the targeted syscall in this process
 Let's imagine you want to break at 3:17 and 4:12, then relaunch the tracer with :
-gdb -x sytrace.py
+```gdb -x sytrace.py
 Base PID for filtering? (empty for none) : [BASH PID HERE]
 Breakpoint ? (procnum:line,procnum2:line2... or empty for none) : 3:17,4:12
-
+```
 Relaunch the program to trace in the Qemu bash prompt, and the sytrace window should break on the chosen syscalls.
 
 Now, let's say you want to patch the return value of syscall 3:17 to zero. When the breakpoint happens, you can do :
