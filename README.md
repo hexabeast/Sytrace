@@ -65,21 +65,20 @@ When it asks "Base PID for filtering? (empty for none) :", if you want to log on
 When it asks "Breakpoint ? (procnum:line,procnum2:line2... or empty for none) :", leave empty for the moment, this will be explained later in the readme.
 
 If you type stuff in the Qemu bash terminal, some output should appear on the gdb window, like this :
-![alt text](https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/gef.PNG height=400)
+![](https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/gef.PNG)
 
 Type a few commands, like "ls", "cat /etc/passwd", just to create some activity. When you're done, in the GDB window, ctrl+c then enter q to exit stop logging. A file named "syscall_log.txt" should be present in the current directory, containing syscalls, as they were displayed in the console with sytrace.py.
 
 To display the graph mode, type :
 ```python3 graph_syscall.py```
 It should create a graph similar to this :
-![alt text](https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/graph.PNG)
-
+<img src="https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/graph.PNG" height="400"><br>
 You can zoom with mouse wheel, pan with left click, move the boxes around with left click, etc.
 
 Each box is a process, yellow lines represent process parent/child relationships, green lines represent ptrace calls made by processes targeting other ones, and red lines represent inter-process communication using pipes.
 
 Here is some summary of what the graph shows us :
-![alt text](https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/how_it_works.png)
+![](https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/how_it_works.png)
 
 We can see the isolated "cron stuff" process that was triggered automatically somewhere in the system as a background task. This is because we did not enable any filtering, so all the syscalls got logged, even those unrelated to what we were doing.
 
@@ -98,7 +97,7 @@ Then, do :
 ```python3 graph_syscall.py```
 
 Go to the syscall that you want to break at in the graph, and press the right button of your mouse on it. It should display two numbers in red, separated by a semicolon :
-![alt text](https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/break.png height=200)
+<img src="https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/break.png" height="200"><br>
 
 It represents the process number (NOT the pid, 1 is first spawned process from capture start, 2 is second spawned process etc), and the position of the targeted syscall in this process
 Let's imagine you want to break at 3:17 and 4:12, then relaunch the tracer with :
