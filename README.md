@@ -110,7 +110,7 @@ python3 graph_syscall.py
 Go to the syscall that you want to break at in the graph, and press the right button of your mouse on it. It should display two numbers in red, separated by a semicolon :
 <br><img src="https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/break.png" height="200"><br>
 
-It represents the process number (NOT the pid, 1 is first spawned process from capture start, 2 is second spawned process etc), and the position of the targeted syscall in this process
+It represents the process number (NOT the pid, 1 is first spawned process from capture start, 2 is second spawned process etc), and the position of the targeted syscall in this process.
 Let's imagine you want to break at 3:17 and 4:12, then relaunch the tracer with :
 ```
 gdb -x sytrace.py
