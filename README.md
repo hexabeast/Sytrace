@@ -1,4 +1,4 @@
-# Why? How?
+## Why? How?
 
 On some "hard" reversing CTF challenges, having a clear visualization of what a program is doing is often not a trivial task, especially with self-rewriting binaries using several processes communicating with each other using ptrace and/or pipes. This tool was created while trying to solve such challenge, and it basically has three main purposes : 
 - Visualizing what the binary is doing using a graph mode showing relationships between its different processes
@@ -25,7 +25,7 @@ It is fully working with x86 64-bit ELF binaries, and should mostly work for x86
 
 It should not be too hard to adapt it for some other architectures, I may implement this in a later update.
 
-# Requirements :
+## Requirements :
 
 qemu
 gdb
@@ -35,7 +35,7 @@ pyglet for python3 (`pip3 install pyglet`)
 
 If for some reason I missed some dependencies (not unlikely), figure it out yourself and install stuff until it doesn't crash anymore
 
-# Installation :
+## Installation :
 
 If you have the willpower to do so, you can build the qemu VM from scratch (any Linux will do), but you'll need to modify the breakpoint offsets in sytrace.py according to the kernel you are using.
 
@@ -46,9 +46,9 @@ Then, you have two choices :
 To have internet on the qemu machine, follow the instructions in the qemuv1/install_inet.txt
 Else, proceed to the "Usage" phase
 
-# Usage :
+## Usage :
 
-## Process visualization
+### Process visualization
 
 Open a new terminal and go to the qemuv1 directory.
 
@@ -84,7 +84,7 @@ Here is some summary of what the graph shows us :
 We can see the isolated "cron stuff" process that was triggered automatically somewhere in the system as a background task. This is because we did not enable any filtering, so all the syscalls got logged, even those unrelated to what we were doing.
 
 
-## Using breakpoints
+### Using breakpoints
 
 In the current implementation, breakpoints only work if the traced program has a deterministic behaviour syscall-wise : Given the same input twice, the graph should look pretty much the same.
 If it is the case, and you need to breakpoint somewhere, first do a run without breakpoint :
@@ -123,7 +123,7 @@ dump memory filename.dump 0x40000000 0x40016000
 c
 ```
 
-The program will continue to run, and filename.dump will contain the dumped memory.
+filename.dump will contain the dumped memory, and the program will continue to run.
 
 
 
