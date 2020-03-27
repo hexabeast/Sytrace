@@ -1,3 +1,6 @@
+#####Disclaimer : This represents about a week of work, was not thoroughly tested at all, and may be full of bugs.
+
+
 ## Why? How?
 
 On some "hard" reversing CTF challenges, visualizing clearly what a program is doing is often not a trivial task, especially with self-rewriting binaries using several processes communicating with each other using ptrace and/or pipes. This tool was created while trying to solve such challenge, and it basically has three main purposes : 
@@ -24,8 +27,6 @@ This tool was only tested on Kali Linux but should work on most Linux distributi
 It is fully working with x86 64-bit ELF binaries, and should mostly work for x86 32-bit ELF binaries.
 
 It should not be too hard to adapt it for some other architectures, I may implement this in a later update.
-
-Disclaimer : This represents about a week of work, was not thoroughly tested at all, and may be full of bugs.
 
 ## Requirements :
 
