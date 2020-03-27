@@ -70,7 +70,7 @@ In another terminal on your host machine, cd to the root directory of the projec
 gdb -x sytrace.py
 ```
 
-When it asks "Base PID for filtering? (empty for none) :", if you want to log only the children of a given process (like your bash prompt), enter the PID of this process. The process itself won't be traced, only its children. To try the tool, we will monitor the whole OS : leave the field empty and press enter
+When it asks "Base PID for filtering? (empty for none) :", if you want to log only the children of a given process (like your bash prompt), enter the PID of this process. The process itself won't be traced, only its children. To try the tool, we will monitor the whole OS : leave the field empty and press enter.
 
 When it asks "Breakpoint ? (procnum:line,procnum2:line2... or empty for none) :", leave empty for the moment, this will be explained later in the readme.
 
@@ -102,7 +102,7 @@ gdb -x sytrace.py
 Base PID for filtering? (empty for none) : [BASH PID HERE]
 Breakpoint ? (procnum:line,procnum2:line2... or empty for none) : [LEAVE EMPTY]
 ```
-Launch the program to trace in the Qemu bash prompt, when the trace is over quit sytrace with ctrl+c then q
+Launch the program to trace in the Qemu bash prompt, when the trace is over quit sytrace with ctrl+c, q.
 
 Then, do :
 ```
