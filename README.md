@@ -130,7 +130,7 @@ c
 
 And the program will continue to run.
 
-When we arrive at syscall 4:12, let's say that now we want to dump the program memory from 0x40000000 to 0x40016000, because some code/strings got decrypted internally in this range and we want to extract all of this for further analysis.
+When we arrive at syscall 4:12, let's say that now we want to dump the program memory from 0x40000000 to 0x40016000 for further analysis, because some code/strings got decrypted internally inside this range.
 We can simply do :
 ```
 dump memory filename.dump 0x40000000 0x40016000
