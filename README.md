@@ -65,21 +65,21 @@ When it asks "Base PID for filtering? (empty for none) :", if you want to log on
 When it asks "Breakpoint ? (procnum:line,procnum2:line2... or empty for none) :", leave empty for the moment, this will be explained later in the readme.
 
 If you type stuff in the Qemu bash terminal, some output should appear on the gdb window, like this :
-IMAGE
+![alt text](https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/gef.PNG)
 
 Type a few commands, like "ls", "cat /etc/passwd", just to create some activity. When you're done, in the GDB window, ctrl+c then enter q to exit stop logging. A file named "syscall_log.txt" should be present in the current directory, containing syscalls, as they were displayed in the console with sytrace.py.
 
 To display the graph mode, type :
 ```python3 graph_syscall.py```
 It should create a graph similar to this :
-IMAGE
+![alt text](https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/graph.PNG)
 
-You can zoom, pan, move the boxes around, etc.
+You can zoom with mouse wheel, pan with left click, move the boxes around with left click, etc.
 
 Each box is a process, yellow lines represent process parent/child relationships, green lines represent ptrace calls made by processes targeting other ones, and red lines represent inter-process communication using pipes.
 
 Here is some summary of what the graph shows us :
-IMAGE
+![alt text](https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/how_it_works.png)
 
 We can see the isolated "cron stuff" process that was triggered automatically somewhere in the system as a background task. This is because we did not enable any filtering, so all the syscalls got logged, even those unrelated to what we were doing.
 
@@ -98,7 +98,7 @@ Then, do :
 ```python3 graph_syscall.py```
 
 Go to the syscall that you want to break at in the graph, and press the right button of your mouse on it. It should display two numbers in red, separated by a semicolon :
-IMAGE
+![alt text](https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/break.png)
 
 It represents the process number (NOT the pid, 1 is first spawned process from capture start, 2 is second spawned process etc), and the position of the targeted syscall in this process
 Let's imagine you want to break at 3:17 and 4:12, then relaunch the tracer with :
@@ -109,15 +109,19 @@ Breakpoint ? (procnum:line,procnum2:line2... or empty for none) : 3:17,4:12
 Relaunch the program to trace in the Qemu bash prompt, and the sytrace window should break on the chosen syscalls.
 
 Now, let's say you want to patch the return value of syscall 3:17 to zero. When the breakpoint happens, you can do :
-```patch qword $rbp+0x50 0
-c```
+```
+patch qword $rbp+0x50 0
+c
+```
 
 And the program will continue to run.
 
 When we arrive at syscall 4:12, let's say that now we want to dump the program memory from 0x40000000 to 0x40016000, because some code/strings got decrypted internally in this range and we want to extract all of this for further analysis.
 We can simply do :
-```dump memory filename.dump 0x40000000 0x40016000
-c```
+```
+dump memory filename.dump 0x40000000 0x40016000
+c
+```
 
 The program will continue to run, and filename.dump will contain the dumped memory.
 
