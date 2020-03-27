@@ -46,8 +46,10 @@ Else, if you're lazy, after cloning this repository somewhere on your machine, d
 https://drive.google.com/open?id=1wbQCuPg2ESQFsROhgAAQz-4y5wUKPye5
 
 Then, you have two choices : 
+
 To have internet on the qemu machine, follow the instructions in the qemuv1/install_inet.txt
-Else, proceed to the "Usage" phase
+
+Else, get to the "Usage" phase
 
 ## Usage :
 
