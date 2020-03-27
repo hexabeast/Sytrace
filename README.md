@@ -57,7 +57,9 @@ If you followed the last part of the installation and want internet on the qemu 
 Else :
 ```./start_no_inet```
 
-Now that the Qemu machine is booted, in another terminal on your host machine, go to the root directory of the project, and type : 
+Now that the Qemu machine is booted, you can access any file from the qemu machine by placing it in qemuv1/share on the host machine : It will be synchronized with the /s directory on Qemu machine. For the rest of this demonstration, we will use programs already embedded in any Linux distribution.
+
+In another terminal on your host machine, cd to the root directory of the project, and type : 
 ```gdb -x sytrace.py```
 
 When it asks "Base PID for filtering? (empty for none) :", if you want to log only the children of a given process (like your bash prompt), enter the PID of this process. The process itself won't be traced, only its children. To try the tool, we will monitor the whole OS : leave the field empty and press enter
