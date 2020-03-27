@@ -30,11 +30,11 @@ It should not be too hard to adapt it for some other architectures, I may implem
 
 ## Requirements :
 
-qemu
-gdb
-gef.py (https://github.com/hugsy/gef/blob/dev/gef.py, put it in /opt/gef.py, or you can change this path in the "gef_location" constant of sytrace.py)
-python3
-pyglet for python3 (`pip3 install pyglet`)
+- qemu
+- gdb
+- gef.py (https://github.com/hugsy/gef/blob/dev/gef.py, put it in /opt/gef.py, or you can change this path in the "gef_location" constant of sytrace.py)
+- python3
+- pyglet for python3 (`pip3 install pyglet`)
 
 If for some reason I missed some dependencies (not unlikely), figure it out yourself and install stuff until it doesn't crash anymore
 
