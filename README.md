@@ -1,4 +1,4 @@
-Why? How?
+# Why? How?
 
 On some "hard" reversing CTF challenges, having a clear visualization of what a program is doing is often not a trivial task, especially with self-rewriting binaries using several processes communicating with each other using ptrace and/or pipes. This tool was created while trying to solve such challenge, and it basically has three main purposes : 
 - Visualizing what the binary is doing using a graph mode showing relationships between its different processes
@@ -10,7 +10,7 @@ To do this, breakpoints are placed in the kernel of the Qemu machine, that will 
 Fun fact : Even when all syscalls in the whole Qemu machine are being logged this way, the bash prompt is still perfectly usable, just slower.
 Less-fun fact : Some time-sensitive programs may not behave normally when using this tool, as the syscall interception makes everything noticeably slower.
 
-Current features :
+### Current features :
 - Trace all syscalls from a Qemu VM, or trace only the children of a given PID (like your current bash console on the machine)
 - Resistant to some anti-debugging protections such as ptrace-based ones, as all extraction is done using breakpoints in the kernel
 - Build a graph from those syscalls, mapping the different processes spawned in different boxes containing the syscalls they made
@@ -25,40 +25,40 @@ It is fully working with x86 64-bit ELF binaries, and should mostly work for x86
 
 It should not be too hard to adapt it for some other architectures, I may implement this in a later update.
 
-Requirements :
+# Requirements :
 
 qemu
 gdb
-gef.py (https://github.com/hugsy/gef/blob/dev/gef.py, will be assumed to be located in /opt/gef.py, you can change this path in sytrace.py)
+gef.py (https://github.com/hugsy/gef/blob/dev/gef.py, put it in /opt/gef.py, or you can change this path in the "gef_location" constant of sytrace.py)
 python3
-pyglet for python3 (pip3 install pyglet)
+pyglet for python3 (`pip3 install pyglet`)
 
 If for some reason I missed some dependencies (not unlikely), figure it out yourself and install stuff until it doesn't crash anymore
 
-Installation :
+# Installation :
 
 If you have the willpower to do so, you can build the qemu VM from scratch (any Linux will do), but you'll need to modify the breakpoint offsets in sytrace.py according to the kernel you are using.
 
-Else, if you're lazy, after cloning this repository somewhere on your machine, download my pre-built Debian 10 qcow image and put it in the "qemuv1/data" folder :
-LINK
+Else, if you're lazy, after cloning this repository somewhere on your machine, download my pre-built Debian 10 qcow image and save it in "qemuv1/data/debian.qcow" :
+https://drive.google.com/open?id=1wbQCuPg2ESQFsROhgAAQz-4y5wUKPye5
 
-Then, go to the qemuv1 folder. Here you have two choices : 
-To have internet on the qemu machine, follow the instructions in the qemuv1/instell_inet.txt
+Then, you have two choices : 
+To have internet on the qemu machine, follow the instructions in the qemuv1/install_inet.txt
 Else, proceed to the "Usage" phase
 
-Usage :
+# Usage :
 
-Process visualization
+## Process visualization
 
 Open a new terminal and go to the qemuv1 directory.
 
-If you followed the last part of the installation, type :
-./start
+If you followed the last part of the installation and want internet on the qemu machine, type :
+```./start```
 Else :
-./start_no_inet
+```./start_no_inet```
 
 Now that the Qemu machine is booted, in another terminal on your host machine, go to the root directory of the project, and type : 
-gdb -x sytrace.py
+```gdb -x sytrace.py```
 
 When it asks "Base PID for filtering? (empty for none) :", if you want to log only the children of a given process (like your bash prompt), enter the PID of this process. The process itself won't be traced, only its children. To try the tool, we will monitor the whole OS : leave the field empty and press enter
 
@@ -70,7 +70,7 @@ IMAGE
 Type a few commands, like "ls", "cat /etc/passwd", just to create some activity. When you're done, in the GDB window, ctrl+c then enter q to exit stop logging. A file named "syscall_log.txt" should be present in the current directory, containing syscalls, as they were displayed in the console with sytrace.py.
 
 To display the graph mode, type :
-python3 graph_syscall.py
+```python3 graph_syscall.py```
 It should create a graph similar to this :
 IMAGE
 
@@ -81,9 +81,10 @@ Each box is a process, yellow lines represent process parent/child relationships
 Here is some summary of what the graph shows us :
 IMAGE
 
+We can see the isolated "cron stuff" process that was triggered automatically somewhere in the system as a background task. This is because we did not enable any filtering, so all the syscalls got logged, even those unrelated to what we were doing.
 
 
-Using breakpoints
+## Using breakpoints
 
 In the current implementation, breakpoints only work if the traced program has a deterministic behaviour syscall-wise : Given the same input twice, the graph should look pretty much the same.
 If it is the case, and you need to breakpoint somewhere, first do a run without breakpoint :
@@ -94,10 +95,11 @@ Breakpoint ? (procnum:line,procnum2:line2... or empty for none) : [LEAVE EMPTY]
 Launch the program to trace in the Qemu bash prompt, when the trace is over quit sytrace with ctrl+c then q
 
 Then, do :
-python3 graph_syscall.py
+```python3 graph_syscall.py```
 
 Go to the syscall that you want to break at in the graph, and press the right button of your mouse on it. It should display two numbers in red, separated by a semicolon :
 IMAGE
+
 It represents the process number (NOT the pid, 1 is first spawned process from capture start, 2 is second spawned process etc), and the position of the targeted syscall in this process
 Let's imagine you want to break at 3:17 and 4:12, then relaunch the tracer with :
 gdb -x sytrace.py
@@ -107,15 +109,15 @@ Breakpoint ? (procnum:line,procnum2:line2... or empty for none) : 3:17,4:12
 Relaunch the program to trace in the Qemu bash prompt, and the sytrace window should break on the chosen syscalls.
 
 Now, let's say you want to patch the return value of syscall 3:17 to zero. When the breakpoint happens, you can do :
-patch qword $rbp+0x50 0
-c
+```patch qword $rbp+0x50 0
+c```
 
 And the program will continue to run.
 
 When we arrive at syscall 4:12, let's say that now we want to dump the program memory from 0x40000000 to 0x40016000, because some code/strings got decrypted internally in this range and we want to extract all of this for further analysis.
 We can simply do :
-dump memory filename.dump 0x40000000 0x40016000
-c
+```dump memory filename.dump 0x40000000 0x40016000
+c```
 
 The program will continue to run, and filename.dump will contain the dumped memory.
 
