@@ -64,7 +64,7 @@ Else :
 ./start_no_inet
 ```
 
-Now that the Qemu machine is booted, you can access any file from the qemu machine by placing it in qemuv1/share on the host machine : It will be synchronized with the /s directory on Qemu machine. For the rest of this demonstration, we will use programs already embedded in any Linux distribution.
+Now that the Qemu machine is booted, you can transfer files to it by placing them in qemuv1/share on the host machine : It will be synchronized with the /s directory on Qemu machine. For the rest of this demonstration, we will use programs already embedded in any Linux distribution.
 
 In another terminal on your host machine, cd to the root directory of the project, and type : 
 ```
