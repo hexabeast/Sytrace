@@ -53,14 +53,20 @@ Else, proceed to the "Usage" phase
 Open a new terminal and go to the qemuv1 directory.
 
 If you followed the last part of the installation and want internet on the qemu machine, type :
-```./start```
+```
+./start
+```
 Else :
-```./start_no_inet```
+```
+./start_no_inet
+```
 
 Now that the Qemu machine is booted, you can access any file from the qemu machine by placing it in qemuv1/share on the host machine : It will be synchronized with the /s directory on Qemu machine. For the rest of this demonstration, we will use programs already embedded in any Linux distribution.
 
 In another terminal on your host machine, cd to the root directory of the project, and type : 
-```gdb -x sytrace.py```
+```
+gdb -x sytrace.py
+```
 
 When it asks "Base PID for filtering? (empty for none) :", if you want to log only the children of a given process (like your bash prompt), enter the PID of this process. The process itself won't be traced, only its children. To try the tool, we will monitor the whole OS : leave the field empty and press enter
 
@@ -89,21 +95,25 @@ We can see the isolated "cron stuff" process that was triggered automatically so
 
 In the current implementation, breakpoints only work if the traced program has a deterministic behaviour syscall-wise : Given the same input twice, the graph should look pretty much the same.
 If it is the case, and you need to breakpoint somewhere, first do a run without breakpoint :
-```gdb -x sytrace.py
+```
+gdb -x sytrace.py
 Base PID for filtering? (empty for none) : [BASH PID HERE]
 Breakpoint ? (procnum:line,procnum2:line2... or empty for none) : [LEAVE EMPTY]
 ```
 Launch the program to trace in the Qemu bash prompt, when the trace is over quit sytrace with ctrl+c then q
 
 Then, do :
-```python3 graph_syscall.py```
+```
+python3 graph_syscall.py
+```
 
 Go to the syscall that you want to break at in the graph, and press the right button of your mouse on it. It should display two numbers in red, separated by a semicolon :
 <br><img src="https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/break.png" height="200"><br>
 
 It represents the process number (NOT the pid, 1 is first spawned process from capture start, 2 is second spawned process etc), and the position of the targeted syscall in this process
 Let's imagine you want to break at 3:17 and 4:12, then relaunch the tracer with :
-```gdb -x sytrace.py
+```
+gdb -x sytrace.py
 Base PID for filtering? (empty for none) : [BASH PID HERE]
 Breakpoint ? (procnum:line,procnum2:line2... or empty for none) : 3:17,4:12
 ```
