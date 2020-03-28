@@ -11,6 +11,7 @@ On some "hard" reversing CTF challenges, visualizing clearly what a program is d
 To do this, breakpoints are placed in the kernel of the Qemu machine, that will be triggered before and after any syscall. Here, arguments to the syscall and current PID are gathered and logged, and the program will either continue or give the user the ability to perform manual gdb commands.
 
 Fun fact : Even when all syscalls in the whole Qemu machine are being logged this way, the bash prompt is still perfectly usable, just slower.
+
 Less-fun fact : Some time-sensitive programs may not behave normally when using this tool, as the syscall interception makes everything noticeably slower.
 
 ### Current features :
@@ -20,7 +21,7 @@ Less-fun fact : Some time-sensitive programs may not behave normally when using 
 - Display heredity between processes with yellow lines
 - Display ptrace interactions between processes with green lines
 - Display pipe-based communication between processes with red lines
-- Breakpoint after any chosen syscall, in order to alter return value or dump current program memory
+- Breakpoint after any chosen syscall, in order to alter return value or dump current process memory
 
 
 This tool was only tested on Kali Linux but should work on most Linux distributions.
@@ -73,9 +74,9 @@ In another terminal on your host machine, cd to the root directory of the projec
 gdb -x sytrace.py
 ```
 
-When it asks "Base PID for filtering? (empty for none) :", if you want to log only the children of a given process (like your bash prompt), enter the PID of this process. The process itself won't be traced, only its children. To try the tool, we will monitor the whole OS : leave the field empty and press enter.
+When it asks `Base PID for filtering? (empty for none) :`, if you want to log only the children of a given process (like your bash prompt), enter the PID of this process. The process itself won't be traced, only its children. To try the tool, we will monitor the whole OS : leave the field empty and press enter.
 
-When it asks "Breakpoint ? (procnum:line,procnum2:line2... or empty for none) :", leave empty for the moment, this will be explained later in the readme.
+When it asks `Breakpoint ? (procnum:line,procnum2:line2... or empty for none) :`, leave empty for the moment, this will be explained later in the readme.
 
 If you type stuff in the Qemu bash terminal, some output should appear on the gdb window, like this :
 ![](https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/gef.PNG)
@@ -88,7 +89,9 @@ It should create a graph similar to this :
 <br><img src="https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/graph.PNG" height="400"><br>
 You can zoom with mouse wheel, pan with left click, move the boxes around with left click, etc.
 
-Each box is a process, yellow lines represent process parent/child relationships, green lines represent ptrace calls made by processes targeting other ones, and red lines represent inter-process communication using pipes.
+Each box is a process, yellow lines represent process parent/child relationships, green lines represent ptrace calls made by processes targeting other ones, and red lines represent inter-process communication using pipes. 
+
+In our example above, there are only yellow lines as there was no ptrace or pipe-based communication.
 
 Here is some summary of what the graph shows us :
 ![](https://raw.githubusercontent.com/hexabeast/Sytrace/master/readme_images/how_it_works.png)
