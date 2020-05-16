@@ -3,7 +3,7 @@
 
 ## Why? How?
 
-On some "hard" reversing CTF challenges, visualizing clearly what a program is doing is often not a trivial task, especially with self-rewriting binaries using several processes communicating with each other using ptrace and/or pipes. This tool was created while trying to solve such challenge, and it basically has three main purposes : 
+On some "hard" reversing CTF challenges, visualizing clearly what a program is doing is often not a trivial task, especially with self-rewriting binaries using several processes communicating with each other using ptrace and/or pipes. This tool was created while trying to solve such kind of challenge, and it basically has three main purposes : 
 - Visualizing what the binary is doing using a graph mode showing relationships between its different processes
 - Dumping memory at a chosen state without triggering anti-debug measures (may still trigger time-based anti-debug)
 - Patching syscalls dynamically.
