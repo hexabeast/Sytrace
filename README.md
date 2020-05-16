@@ -8,7 +8,7 @@ On some "hard" reversing CTF challenges, visualizing clearly what a program is d
 - Dumping memory at a chosen state without triggering anti-debug measures (may still trigger time-based anti-debug)
 - Patching syscalls dynamically.
 
-To do this, breakpoints are placed in the kernel of the Qemu machine, that will be triggered before and after any syscall. Here, arguments to the syscall and current PID are gathered and logged, and the program will either continue or give the user the ability to perform manual gdb commands.
+To do this, breakpoints are placed into the kernel of the Qemu machine, which will be triggered before and after any syscall. Here, arguments to the syscall and current PID are gathered and logged, and the program will either continue or give the user the ability to perform manual gdb commands.
 
 Fun fact : Even when all syscalls in the whole Qemu machine are being logged this way, the bash prompt is still perfectly usable, just slower.
 
