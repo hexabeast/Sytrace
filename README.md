@@ -120,30 +120,22 @@ Go to the syscall that you want to break at in the graph, and press the right bu
 
 It represents the process number (NOT the pid, 1 is first spawned process from capture start, 2 is second spawned process etc), and the position of the targeted syscall in this process.
 
-Let's imagine you want to break at 3:17 and 4:12, then relaunch the tracer with :
+Let's imagine you want to break at 3:17, then relaunch the tracer with :
 ```
 gdb -x sytrace.py
 Base PID for filtering? (empty for none) : [BASH PID HERE]
-Breakpoint ? (procnum:line,procnum2:line2... or empty for none) : 3:17,4:12
+Breakpoint ? (procnum:line or empty for none) : 3:17
 ```
 Relaunch the program to trace in the Qemu bash prompt, and the sytrace window should break on the chosen syscalls.
 
-Now, let's say you want to patch the return value of syscall 3:17 to zero. When the breakpoint happens, you can do :
-```
-patch qword $rbp+0x50 0
-c
-```
-
-And the program will continue to run.
-
-When you arrive at syscall 4:12, let's say that now you want to dump the program memory from 0x40000000 to 0x40016000 for further analysis, because some code/strings got decrypted internally inside this range.
+Now, you're in userland and can debug the program directly.
+Let's say that now you want to dump the program memory from 0x40000000 to 0x40016000 for further analysis, because some code/strings got decrypted internally inside this range.
 You can simply do :
 ```
 dump memory filename.dump 0x40000000 0x40016000
-c
 ```
 
-filename.dump will contain the dumped memory, and the program will continue to run.
+filename.dump will contain the dumped memory.
 
 
 
