@@ -21,7 +21,7 @@ Less-fun fact : Some time-sensitive programs may not behave normally when using 
 - Display heredity between processes with yellow lines
 - Display ptrace interactions between processes with green lines
 - Display pipe-based communication between processes with red lines
-- Breakpoint after any chosen syscall, in order to alter return value or dump current process memory
+- Breakpoint after any chosen syscall, in order to debug the program or dump current process memory
 
 
 This tool was only tested on Kali Linux but should work on most Linux distributions.
