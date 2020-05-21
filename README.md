@@ -6,7 +6,7 @@
 On some "hard" reversing CTF challenges, visualizing clearly what a program is doing is often not a trivial task, especially with self-rewriting binaries using several processes communicating with each other using ptrace and/or pipes. This tool was created while trying to solve such kind of challenge, and it basically has three main purposes : 
 - Visualizing what the binary is doing using a graph mode showing relationships between its different processes
 - Dumping memory at a chosen state without triggering anti-debug measures (may still trigger time-based anti-debug)
-- Patching syscalls dynamically.
+- Starting the debugging of a binary from any syscall in any subprocess, bypassing all checks prior to this syscall
 
 To do this, breakpoints are placed into the kernel of the Qemu machine, which will be triggered before and after any syscall. Here, arguments to the syscall and current PID are gathered and logged, and the program will either continue or give the user the ability to perform manual gdb commands.
 
