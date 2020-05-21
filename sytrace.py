@@ -77,7 +77,7 @@ def ask_filtering():
 pid_filtering = ask_filtering()
 
 def ask_memdump():
-    gdb.execute('printf "Breakpoint ? (procnum:line,procnum2:line2... or empty for none) : "')
+    gdb.execute('printf "Breakpoint ? (procnum:line... or empty for none) : "')
     inpt = input()
     if inpt != "":
         try:
@@ -256,9 +256,23 @@ class retpoint(gdb.Breakpoint):
                 #gdb.execute("gef config context.enable 1")
                 #print("ZERO ZERO ZERO")
                 #gdb.execute("patch qword $rbp+0x50 -1")
-                return True
-
+                wormpoint("*0xffffffff81800a34")
+        
+                return False
         return False
+
+def worm_end():
+    gdb.execute("stepi 36")
+
+class wormpoint(gdb.Breakpoint):
+    def stop(self):
+        for b in brpoints:
+            b.enabled=False
+        self.enabled=False
+        #gdb.execute("stepi 35")
+        gdb.execute("gef config context.enable 1")
+        gdb.post_event(worm_end)
+        return True
 
 ##################################################################### COMMANDS #####################################################################
 
@@ -273,14 +287,22 @@ gdb.execute("gef config context.enable 0")
 gdb.execute("set arch i386:x86-64")
 gdb.execute("gef-remote -q :1234")
 
-syspoint(break_before).typ="64"
-retpoint(break_after).typ="64"
 
-syspoint(break_before32).typ="32"
-retpoint(break_after32).typ="32"
+brpoints = []
+brpoints.append(syspoint(break_before))
+brpoints[-1].typ = "64"
+brpoints.append(retpoint(break_after))
+brpoints[-1].typ = "64"
 
-syspoint(break_before32_fast).typ="32_fast"
-retpoint(break_after32_fast).typ="32_fast"
+brpoints.append(syspoint(break_before32))
+brpoints[-1].typ = "32"
+brpoints.append(retpoint(break_after32))
+brpoints[-1].typ = "32"
+
+brpoints.append(syspoint(break_before32_fast))
+brpoints[-1].typ = "32_fast"
+brpoints.append(retpoint(break_after32_fast))
+brpoints[-1].typ = "32_fast"
 
 gdb.execute("c")
 
