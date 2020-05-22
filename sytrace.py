@@ -77,7 +77,7 @@ def ask_filtering():
 pid_filtering = ask_filtering()
 
 def ask_memdump():
-    gdb.execute('printf "Breakpoint ? (procnum:line... or empty for none) : "')
+    gdb.execute('printf "Breakpoint ? (procnum:line or empty for none) : "')
     inpt = input()
     if inpt != "":
         try:
@@ -252,26 +252,41 @@ class retpoint(gdb.Breakpoint):
 
         if procnumbers[pid] in memdump:
             if proc_syscall_amount[pid] in memdump[procnumbers[pid]] :
-                #dump memory kdump2 0x40000000 0x40041D50
-                #gdb.execute("gef config context.enable 1")
-                #print("ZERO ZERO ZERO")
-                #gdb.execute("patch qword $rbp+0x50 -1")
-                wormpoint("*0xffffffff81800a34")
+                brpoints.append(wormpoint_iret("*0xffffffff81800a34"))
+                brpoints.append(wormpoint_sysret("*0xffffffff8180015f"))
         
                 return False
         return False
 
-def worm_end():
-    gdb.execute("stepi 36")
+def worm_iret_end():
+    pass
+    gdb.execute("gef config context.enable 1")
+    gdb.execute("stepi")
 
-class wormpoint(gdb.Breakpoint):
+def worm_sysret_end():
+    pass
+    gdb.execute("gef config context.enable 1")
+    gdb.execute("br *$rcx")
+    gdb.execute("c")
+
+class wormpoint_iret(gdb.Breakpoint):
     def stop(self):
         for b in brpoints:
             b.enabled=False
-        self.enabled=False
-        #gdb.execute("stepi 35")
-        gdb.execute("gef config context.enable 1")
+        wormpoint_iret2("*0xffffffff81800ae7")
+        return True
+
+class wormpoint_iret2(gdb.Breakpoint):
+    def stop(self):
         gdb.post_event(worm_end)
+        self.enabled=False
+        return True
+
+class wormpoint_sysret(gdb.Breakpoint):
+    def stop(self):
+        for b in brpoints:
+            b.enabled=False
+        gdb.post_event(worm_sysret_end)
         return True
 
 ##################################################################### COMMANDS #####################################################################
@@ -283,7 +298,7 @@ if logging:
     log_file = open(log_file_name,"w")
 
 gdb.execute("source "+gef_location)
-gdb.execute("gef config context.enable 0")
+gdb.execute("gef config context.enable 1")
 gdb.execute("set arch i386:x86-64")
 gdb.execute("gef-remote -q :1234")
 
