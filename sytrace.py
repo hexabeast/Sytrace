@@ -278,7 +278,7 @@ class wormpoint_iret(gdb.Breakpoint):
 
 class wormpoint_iret2(gdb.Breakpoint):
     def stop(self):
-        gdb.post_event(worm_end)
+        gdb.post_event(worm_iret_end)
         self.enabled=False
         return True
 
